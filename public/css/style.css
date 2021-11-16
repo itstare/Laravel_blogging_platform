@@ -1,0 +1,15 @@
+/* Custom css */
+
+.btn-margin-right{
+margin-right: 20px;
+}
+
+.btn{
+border-radius: 0px;
+}
+
+.jumbotron{
+margin-left:-15px;
+margin-right:-15px;
+margin-top:-23px;
+}
