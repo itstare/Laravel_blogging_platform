@@ -7,6 +7,8 @@
  <div class="jumbotron">
 	<h1>{{ $category->name }}</h1>
 
+	@if(Auth::user() && Auth::user()->role_id === 1)
+
 	<div class="btn-group">
 
 	   <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm btn-margin-right">Edit</a>
@@ -17,12 +19,14 @@
 		   {{ csrf_field() }}
        </form>
     </div>
+
+    @endif
  </div>
 
 		   <div class="col-md-12">
 		   	@foreach($category->blog as $blog)
 
-		   	<h3><a href="{{ route('blogs.view', $blog->id) }}">{{ $blog->title }}</a></h3>
+		   	<h3><a href="{{ route('blogs.view', $blog->slug) }}">{{ $blog->title }}</a></h3>
 
 		   	@endforeach
 		   </div>

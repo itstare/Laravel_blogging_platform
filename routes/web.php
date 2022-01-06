@@ -39,12 +39,12 @@ Route::get('/admin/blogs', 'App\Http\Controllers\AdminController@blogs')->name('
 
 //Categories routes
 Route::get('/categories', 'App\Http\Controllers\CategoryController@index')->name('categories');
-Route::get('/categories/create', 'App\Http\Controllers\CategoryController@create')->name('categories.create');
-Route::post('/categories/store', 'App\Http\Controllers\CategoryController@store')->name('categories.store');
-Route::get('/categories/{id}/edit', 'App\Http\Controllers\CategoryController@edit')->name('categories.edit');
-Route::patch('/categories/{id}/update', 'App\Http\Controllers\CategoryController@update')->name('categories.update');
+Route::get('/categories/create', 'App\Http\Controllers\CategoryController@create')->name('categories.create')->middleware('admin');
+Route::post('/categories/store', 'App\Http\Controllers\CategoryController@store')->name('categories.store')->middleware('admin');
+Route::get('/categories/{id}/edit', 'App\Http\Controllers\CategoryController@edit')->name('categories.edit')->middleware('admin');
+Route::patch('/categories/{id}/update', 'App\Http\Controllers\CategoryController@update')->name('categories.update')->middleware('admin');
 Route::get('/categories/{slug}/view', 'App\Http\Controllers\CategoryController@show')->name('categories.view');
-Route::delete('/categories/{id}/delete', 'App\Http\Controllers\CategoryController@destroy')->name('categories.delete');
+Route::delete('/categories/{id}/delete', 'App\Http\Controllers\CategoryController@destroy')->name('categories.delete')->middleware('admin');
 
 //UserController routes
 //Route::get('/users/{name}/show', 'App\Http\Controllers\UserController@show')->name('users.show');
@@ -63,4 +63,13 @@ Route::post('/contact/send', 'App\Http\Controllers\ContactController@send')->nam
 
 //using Route resource
 //Route::resource('categories', 'App\Http\Controllers\CategoryController');
+
+//File manager
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+ });
+
+//Social Auth routes
+Route::get('/redirect', 'App\Http\Controllers\SocialAuthController@redirect')->name('redirect');
+Route::get('/callback', 'App\Http\Controllers\SocialAuthController@callback');
 

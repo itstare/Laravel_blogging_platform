@@ -18,12 +18,12 @@
 
 				<div class="form-group">
 					<label for="title">Title</label>
-					<input type="text" name="title" class="form-control">
+					<input type="text" name="title" class="form-control" value="{{ old('title') }}">
 				</div>
 
 				<div class="form-group">
 					<label for="body">Body</label>
-					<textarea name="body" class="form-control"></textarea>
+					<textarea name="body" class="form-control my-editor">{{ old('body') }}</textarea>
 				</div>
 
 				<div class="form-group form-check form-check-inline">
@@ -51,3 +51,5 @@
 	</div>
 
 @endsection
+
+

@@ -21,9 +21,15 @@ class BlogFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->sentence(10);
+        $body = $this->faker->sentence(100);
+
         return [
-            'title' => $this->faker->sentence(10),
-            'body' => $this->faker->sentence(100),
+            'title' => $title,
+            'body' => $body,
+            'slug' => str_slug($title, '-'),
+            'meta_title' => str_limit($title,55),
+            'meta_description' => str_limit($body,155),
         ];
     }
 }

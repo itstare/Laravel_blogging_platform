@@ -19,11 +19,20 @@
 			</div>
 
 			<div class="form-group">
+				@if($user->role->id === 1)
+				<select name="role_id" class="form-control">
+					<option selected>{{ $user->role->name }}</option>
+					<option value="1">Admin</option>
+					<option value="2">Author</option>
+					<option value="3">Subscriber</option>
+				</select>
+				@else
 				<select name="role_id" class="form-control">
 					<option selected>{{ $user->role->name }}</option>
 					<option value="2">Author</option>
 					<option value="3">Subscriber</option>
 				</select>
+				@endif
 			</div>
 
 			<div class="form-group">

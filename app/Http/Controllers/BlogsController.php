@@ -18,10 +18,18 @@ class BlogsController extends Controller
         $this->middleware('admin', ['only' => ['delete', 'trash', 'restore', 'permanentDelete']]);
     }
 
-    public function index(){
-        $blogs = Blog::where('status', 1)->latest()->get();
-        //$blogs = Blog::latest()->get();
-        //$blogs = Blog::all();
+    public function index(Request $request){
+        if($request->term){
+                $blogs = Blog::where(function ($querry) use ($request){
+                    if($term = $request->get('term')){
+                        $querry->orWhere('title', 'like', '%' . $term . '%');
+                    }
+                })->where('status', 1)->orderBy('id', 'desc')->simplePaginate(3);
+        }else{
+                $blogs = Blog::where('status', 1)->latest()->simplePaginate(3);
+                //$blogs = Blog::latest()->get();
+                //$blogs = Blog::all();
+             }
         return view('blogs.index', compact('blogs'));
     }
 

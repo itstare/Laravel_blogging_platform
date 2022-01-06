@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Session;
 
 class CategoryController extends Controller
 {
@@ -36,7 +37,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name' => ['required', 'min:2', 'max:30'],
+        ];
+        $this->validate($request,$rules);
+
         Category::create(['name' => $request['name'], 'slug' => str_slug($request['name'], '-')]);
+
+        Session::flash('category_created', 'Category created!');
 
         return back();
     }
